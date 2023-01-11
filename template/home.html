@@ -1,0 +1,98 @@
+
+{% extends "base.html" %}
+{%block css%}
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<!-- <link rel="stylesheet" href="/static/css/style.css"> -->
+{%endblock%}
+{%block title%}Home{%endblock%}
+{%block navbar%}
+
+{%endblock%}
+{%block body%}
+<link rel="stylesheet" href="/static/css/style_v1.css">
+<link rel="stylesheet" href="/static/css/style_v2.css">
+
+<section style="display: block;">
+    <div class="main_container">
+        <div id="search" class="bg-red-200">
+            <button class="fa bg-gray-50"></button>
+            <div id="search_heading" >Search</div>
+            {% for br in branch_data%}
+            {% if "branch" in br %}
+            <a href="#" class="parent-ele font-black link-1">{{br.branch}} <i class="fas fa-angle-right  dropdown"></i></a>
+            <div class="child light-border" id="{{br.branch}}">
+                
+                <!-- <form method="get" class="form" action="/"> -->
+                    {% for sub in br.subjects%}
+                    {%if sub%}
+                    <a href="/branch/{{br.branch}}/subject/{{sub}}/"class="link subject">{{sub}}</a>
+                    {%endif%}
+                    {% endfor %}
+                    <!-- </form> -->
+                </div>
+                {%endif%}    
+                {% endfor %}
+
+
+        </div>
+        <div id="visible">
+            <!-- <div class="left_scroll">lorem</div> -->
+            <div id="center_content">
+                
+                <div id="chapters-select-container" class="row">
+                    <div id="select-container">
+                        <div id="select-search-container">
+                            <div id="search-field"> Search chapter</div>
+                            <div id="search-icon"></div>
+                        </div>
+                        <div id="select-items">
+                                {% for item in branch_data %}
+                                {% if item.chapter %}
+                                    {% for chap in item.chapter %}
+                                    {%if chap%}
+                                    <div id="select-item" id="sub"  class="select">
+                                            <a href="chapter/{{chap.0}}" class="subject_container subject link-1">
+                                                {{chap.0}}
+                                            </a>
+                                        </div>
+                                    {%endif%}
+                                    {% endfor %}
+                            {% endif %}
+                            {% if item.topics %}
+                            {% for topic in item.topics  %}
+
+                            <option class="link subject topic flex" value="{{topic}}">{{topic}}</option>
+                            {% endfor %}
+                            {%endif%}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- <div id="blank-sp" style="width:20vw";>
+                        
+                    </div> -->
+                </div>
+                
+            </div>  <!-- </div>center content end here -->
+        </div>
+        <!-- <div class="right_scroll"></div> -->
+        <div id="selected-container">
+            <div id="selected-container-heading">Selected chapters
+            </div>
+            <div id="selected" class="selected-items">
+                <form method="post" id="selected_list">
+                    {% csrf_token %}
+                    <!-- <select name="topic" id="topic_selected"></select> -->
+                    <button type="submit" class="link">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+{%endblock%}
+{%block javascript%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="/static/js/main.js"></script>
+{%endblock%}

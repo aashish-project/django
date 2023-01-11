@@ -1,0 +1,60 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{%block title%} {%endblock%}</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+    {% tailwind_css %}
+    <style>
+      #loading-animation {
+        background: white url(/static/images/0_4Gzjgh9Y7Gu8KEtZ.gif) no-repeat center center;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        z-index: 100;
+      }
+    </style>
+      
+    {%block css%} {%endblock%}
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style_v2.css">
+  </head>
+<body>
+    
+    <div id="loading-animation">
+    </div>
+
+    <header class="header ">
+        <div class="logo">
+            <a href="/"><img src="/static/images/logo-bookmark.svg" alt="logo-bookmark"></a>
+        </div>
+        
+        <nav class="navbar">
+            <!-- {{request.path}} -->
+            <a  href="/" id="{% if request.path == '/' %}current-active{%endif%}">Home</a>
+            <a href="/features" id="{% if request.path == '/features/'%}current-active{% endif %}">Features</a>
+            <a href="/download" id="{% if request.path == '/download/'%}current-active{% endif %}">Download</a>
+            <a href="/link" id="{% if request.path == '/link/'%}current-active{% endif %}">User Form</a>
+        </nav>
+        <a href="/admin/" class="btn">log in</a>
+    </header>
+    {%load static %}
+    {%block navbar%} {%endblock%}
+    {%block body%} {%endblock%}
+</div>
+<!-- <div class="right_scroll"></div> -->
+</div>
+</body>
+
+<script>
+  window.onload = function() {
+    // Hide the loading animation
+    document.getElementById("loading-animation").style.display = "none";
+  }
+</script>
+{%block javascript%} {%endblock%}
+</html>
